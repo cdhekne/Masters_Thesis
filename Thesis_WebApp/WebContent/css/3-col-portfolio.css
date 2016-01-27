@@ -1,0 +1,115 @@
+/*!
+ * Start Bootstrap - 3 Col Portfolio HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.portfolio-item {
+    margin-bottom: 25px;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+.course-info {
+    margin-left: 0; padding-left: 0;
+    list-style-type: none; margin-top: 10px;
+}
+
+.post-name {
+    height: 25px; overflow: hidden;
+}
+
+.pagination li {
+    float: left;
+    display: block;
+}
+
+#search-input {
+    width: 70%;
+}
+#searchBy {
+    width: 22%;
+    height: 60px;
+}
+
+.page-header {
+    border-bottom: none;
+}
+
+/*.spinner-wrap{    
+    height: 50px;
+    border-radius: 10px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}*/
+.spinner {
+  margin: 30px auto;
+  width: 200px;
+  text-align: center;
+  display: none;
+}
+
+.spinner > div {
+  width: 42px;
+  height: 42px;
+  background-color: rgb(217, 83, 79);
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
+
+input[readonly]
+{
+    cursor: not-allowed;
+}
+
+.message {
+    background: #eee;
+    padding: 30px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 30px;
+    color: #666;
+    border: 1px solid #eee;
+}
+
+
+.error{ 
+    animation: blink .5s step-end infinite alternate;
+}
+
+@keyframes blink { 
+   50% { border-color: #ff0000; } 
+}
