@@ -1,9 +1,9 @@
 package com.ml.search;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,15 +28,15 @@ import com.ml.query.QueryInfo;
  */
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String url = "/home/cdhekne/Documents/Thesis/udacity_1.ttl";
-	private static final String db = "http://localhost:3030/udacity/query";
+//	private static final String url = "/home/cdhekne/Documents/Thesis/udacity_1.ttl";
+	private static final String db = "http://localhost:3030/All_data/query";
 	private final OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM, null);
 	private QueryInfo qi = new QueryInfo();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String keyword;
 		
-		keyword = request.getParameter("keyword");
+		keyword = "computer";/*request.getParameter("keyword")*/;
 		
 		/*if(keyword.isEmpty()) {
 			// Send back to home page
@@ -44,13 +44,13 @@ public class SearchServlet extends HttpServlet {
 			return;
 		}
 		else {*/
-			m.read(url, "RDF/XML");
+//			m.read(url, "RDF/XML");
 			
 			String queryString = "prefix edu: <http://cdhekne.github.io/mooc.owl#>\n" +
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
 				"PREFIX schema: <http://schema.org/>\n" +
-				"SELECT ?Short_Name ?Duration WHERE {\n" +
-		        "?course edu:Duration ?Duration ; edu:Short_Name ?Short_Name .\n" +
+				"SELECT ?Short_Name ?Duration ?Difficulty WHERE {\n" +
+		        "?course edu:Duration ?Duration ; edu:Short_Name ?Short_Name ; edu:Difficulty ?Difficulty .\n" +
 		        "FILTER (regex(?Short_Name, \"" + keyword + "\", \"i\")).\n" +
 				"}";
 			
@@ -65,7 +65,7 @@ public class SearchServlet extends HttpServlet {
 			// Better: forward request & response with redirect
 			// Browser doesn't know that this is a new request, request
 			// and response parameters are carried over
-			String json="";
+			ArrayList<Object> jsonObj= new ArrayList<Object>();
 			try{
 				
 				ResultSet responseResultSet = qexec.execSelect();
@@ -75,34 +75,46 @@ public class SearchServlet extends HttpServlet {
 					Gson gson = new Gson();
 					QuerySolution soln = responseResultSet.nextSolution();
 					RDFNode name = soln.get("?Short_Name");
-					RDFNode recBackground = soln.get("?Duration");
+					RDFNode duration = soln.get("?Duration");
+					RDFNode difficulty = soln.get("?Difficulty");
+					
 					j.put("name", name.toString());
-					j.put("Duration", recBackground.toString());
-					json += "\n"+gson.toJson(j);
+					j.put("duration", duration.toString());
+					j.put("difficulty", difficulty.toString());
+					jsonObj.add(j);
 				}
+				
 			}
 			catch(Exception e){
 				
 				e.printStackTrace();
 			}
 			
-			json = "[" + json+ "]";
+//			json = "[" + json+ "]";
+			
+			String json1 = new Gson().toJson(jsonObj);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().print(json1);
+          /*  
+            RequestDispatcher dispatcher = request.getRequestDispatcher("results.jsp");
+			request.setAttribute("json", json1);
+			dispatcher.forward(request, response);*/
             
-            // fw.close();
+           /* // fw.close();
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "GET, POST");
             response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-            response.setHeader("Access-Control-Max-Age", "86400");
-            //Tell the browser what requests we allow.
-            response.setHeader("Allow", "GET, HEAD, POST, TRACE, OPTIONS");
+            String json1 = new Gson().toJson(json);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(new Gson().toJson(json)); 
+            response.getWriter().write(json1);
+//            response.getWriter().write(new Gson().toJson(json)); 
             System.out.println("Done");
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("results.jsp");
 			request.setAttribute("json", json);
-			dispatcher.forward(request, response);
+			dispatcher.forward(request, response);*/
 		}
 	//}
 	

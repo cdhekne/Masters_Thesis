@@ -187,7 +187,7 @@ public class EdXCourse {
 		{
 	    	final Gson gson = new Gson();
 			try{
-				String inputFileName = "data/rdf/mooc_7_10_uu.rdf";
+				String inputFileName = "data/rdf/Original_MOOC.owl";
 				OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM, null);
 				InputStream in = FileManager.get().open(inputFileName);
 			    m.read(in, "RDF/XML");

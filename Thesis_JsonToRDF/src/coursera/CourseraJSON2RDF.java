@@ -117,7 +117,7 @@ public class CourseraJSON2RDF {
 			String[] args2 = {"data/rdf/Original_MOOC.owl", "data/coursera/categories.json",
 					"data/coursera/universities.json",	"data/coursera/instructors.json",
 					"data/coursera/courses.json", "data/coursera/sessions.json",
-				    "data/rdf/mooc_chinmay.rdf", "log/json_conversion_log_chinmay.txt"};
+				    "data/rdf/mooc_chinmay1.rdf", "log/json_conversion_log_chinmay.txt"};
 			r.convertJSON2RDF(args2);
 	}
 	
